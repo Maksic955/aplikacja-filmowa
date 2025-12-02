@@ -1,5 +1,6 @@
 package com.example.movieapp.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.adapters.ImageGalleryAdapter
 import com.example.movieapp.api.RetrofitClient
+import com.example.movieapp.database.DatabaseHelper
 import com.example.movieapp.models.ImageData
 import kotlinx.coroutines.launch
 
@@ -25,8 +27,16 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var tvOverview: TextView
     private lateinit var recyclerViewGallery: RecyclerView
     private lateinit var btnBack: Button
+    private lateinit var btnToggleFavorite: Button
 
+    private lateinit var dbHelper: DatabaseHelper
     private var currentImages: List<ImageData> = emptyList()
+
+    private var movieId: Int = 0
+    private var movieTitle: String = ""
+    private var moviePosterPath: String? = null
+    private var movieRating: Double = 0.0
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,34 +48,85 @@ class MovieDetailActivity : AppCompatActivity() {
         tvOverview = findViewById(R.id.tvMovieDetailOverview)
         recyclerViewGallery = findViewById(R.id.recyclerViewGallery)
         btnBack = findViewById(R.id.btnBack)
+        btnToggleFavorite = findViewById(R.id.btnToggleFavorite)
+
+        dbHelper = DatabaseHelper(this)
 
         // Horizontal layout dla galerii
         recyclerViewGallery.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // Pobieranie danych z Intent
-        val movieId = intent.getIntExtra("movie_id", 0)
-        val title = intent.getStringExtra("movie_title") ?: "Brak tytułu"
+        movieId = intent.getIntExtra("movie_id", 0)
+        movieTitle = intent.getStringExtra("movie_title") ?: "Brak tytułu"
         val overview = intent.getStringExtra("movie_overview") ?: "Brak opisu"
-        val posterPath = intent.getStringExtra("movie_poster")
-        val rating = intent.getDoubleExtra("movie_rating", 0.0)
+        moviePosterPath = intent.getStringExtra("movie_poster")
+        movieRating = intent.getDoubleExtra("movie_rating", 0.0)
 
         // Wyświetlanie danych
-        tvTitle.text = title
-        tvRating.text = "⭐ ${String.format("%.1f", rating)}"
+        tvTitle.text = movieTitle
+        tvRating.text = "⭐ ${String.format("%.1f", movieRating)}"
         tvOverview.text = overview
 
-        val posterUrl = RetrofitClient.IMAGE_BASE_URL + posterPath
+        val posterUrl = RetrofitClient.IMAGE_BASE_URL + moviePosterPath
         Glide.with(this)
             .load(posterUrl)
             .placeholder(R.drawable.ic_launcher_background)
             .into(ivPoster)
 
+        // Sprawdzenie czy film jest w ulubionych
+        checkFavoriteStatus()
+
         // Ładowanie galerii zdjęć
         loadMovieImages(movieId)
+
+        btnToggleFavorite.setOnClickListener {
+            toggleFavorite()
+        }
 
         btnBack.setOnClickListener {
             finish()
         }
+    }
+
+    private fun checkFavoriteStatus() {
+        val username = getLoggedInUsername()
+        isFavorite = dbHelper.isFavorite(username, movieId)
+        updateFavoriteButton()
+    }
+
+    private fun updateFavoriteButton() {
+        if (isFavorite) {
+            btnToggleFavorite.text = "★" // Wypełniona gwiazdka
+            btnToggleFavorite.backgroundTintList = getColorStateList(android.R.color.holo_orange_light)
+        } else {
+            btnToggleFavorite.text = "☆" // Pusta gwiazdka
+            btnToggleFavorite.backgroundTintList = getColorStateList(android.R.color.darker_gray)
+        }
+    }
+
+    private fun toggleFavorite() {
+        val username = getLoggedInUsername()
+
+        if (isFavorite) {
+            // Usuń z ulubionych
+            if (dbHelper.removeFavorite(username, movieId)) {
+                isFavorite = false
+                updateFavoriteButton()
+                Toast.makeText(this, "Usunięto z ulubionych", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Dodaj do ulubionych
+            if (dbHelper.addFavorite(username, movieId, movieTitle, moviePosterPath, movieRating)) {
+                isFavorite = true
+                updateFavoriteButton()
+                Toast.makeText(this, "Dodano do ulubionych", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getLoggedInUsername(): String {
+        val sharedPrefs = getSharedPreferences("MovieGalleryPrefs", Context.MODE_PRIVATE)
+        return sharedPrefs.getString("logged_in_user", "") ?: ""
     }
 
     private fun loadMovieImages(movieId: Int) {
@@ -77,7 +138,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
                 if (images.isNotEmpty()) {
                     val adapter = ImageGalleryAdapter(images) { position ->
-                        // Kliknięcie w zdjęcie - otwieramy pełnoekranową galerię
                         openFullscreenGallery(position)
                     }
                     recyclerViewGallery.adapter = adapter
