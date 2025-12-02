@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Główna" />
+
+    <item
+        android:id="@+id/navigation_favorites"
+        android:icon="@android:drawable/star_big_on"
+        android:title="Ulubione" />
+
+    <item
+        android:id="@+id/navigation_weather"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Pogoda" />
+</menu>

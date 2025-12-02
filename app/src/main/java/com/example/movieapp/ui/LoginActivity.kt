@@ -38,6 +38,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (dbHelper.loginUser(username, password)) {
+                // Zapisz nazwę użytkownika
+                val sharedPrefs = getSharedPreferences("MovieGalleryPrefs", MODE_PRIVATE)
+                sharedPrefs.edit().putString("logged_in_user", username).apply()
+
                 Toast.makeText(this, "Zalogowano pomyślnie!", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

@@ -46,26 +46,16 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Retrofit - do komunikacji z API
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    // Glide - do ładowania obrazków
     implementation("com.github.bumptech.glide:glide:4.16.0")
-
-    // Coroutines - do asynchronicznych operacji
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-
-    // ViewModel i LiveData
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-
-    // RecyclerView - do wyświetlania list
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-
-    // Bezpieczeństwo dla szyfrowania haseł
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
-
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 }
