@@ -62,7 +62,6 @@ class MovieDetailActivity : AppCompatActivity() {
         moviePosterPath = intent.getStringExtra("movie_poster")
         movieRating = intent.getDoubleExtra("movie_rating", 0.0)
 
-        // Wyświetlanie danych
         tvTitle.text = movieTitle
         tvRating.text = "⭐ ${String.format("%.1f", movieRating)}"
         tvOverview.text = overview
@@ -73,10 +72,8 @@ class MovieDetailActivity : AppCompatActivity() {
             .placeholder(R.drawable.ic_launcher_background)
             .into(ivPoster)
 
-        // Sprawdzenie czy film jest w ulubionych
         checkFavoriteStatus()
 
-        // Ładowanie galerii zdjęć
         loadMovieImages(movieId)
 
         btnToggleFavorite.setOnClickListener {
@@ -96,11 +93,11 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun updateFavoriteButton() {
         if (isFavorite) {
-            btnToggleFavorite.text = "★" // Wypełniona gwiazdka
+            btnToggleFavorite.text = "★ Usuń z ulubionych"
             btnToggleFavorite.backgroundTintList = getColorStateList(android.R.color.holo_orange_light)
         } else {
-            btnToggleFavorite.text = "☆" // Pusta gwiazdka
-            btnToggleFavorite.backgroundTintList = getColorStateList(android.R.color.darker_gray)
+            btnToggleFavorite.text = "☆ Dodaj do ulubionych"
+            btnToggleFavorite.backgroundTintList = null
         }
     }
 

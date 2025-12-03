@@ -14,4 +14,9 @@
         android:id="@+id/navigation_weather"
         android:icon="@android:drawable/ic_menu_compass"
         android:title="Pogoda" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="Ustawienia" />
 </menu>

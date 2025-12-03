@@ -34,6 +34,47 @@
                 app:queryHint="Szukaj filmów..."
                 app:iconifiedByDefault="false"/>
 
+            <!-- Sortowanie i filtrowanie -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <Button
+                    android:id="@+id/btnSortAZ"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="A-Z ↓"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:backgroundTint="?attr/colorButtonNormal"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btnSortZA"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Z-A ↑"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:backgroundTint="?attr/colorButtonNormal"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btnOpenFilter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="🔍 Filtry"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="?attr/colorPrimary"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -41,6 +82,45 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMovies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Paginacja -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center"
+        android:background="?attr/colorPrimary">
+
+        <Button
+            android:id="@+id/btnPrevPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="◀ Poprzednia"
+            android:textSize="12sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvPageInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Strona 1 z 1"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btnNextPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Następna ▶"
+            android:textSize="12sp"
+            android:padding="8dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

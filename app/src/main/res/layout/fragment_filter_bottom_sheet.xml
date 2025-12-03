@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filtry i sortowanie"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Gatunki -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🎭 Gatunki:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Język oryginalny -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🌍 Język oryginalny:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <RadioButton
+                android:id="@+id/radioLangAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wszystkie"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radioLangPolish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Polski"/>
+
+            <RadioButton
+                android:id="@+id/radioLangEnglish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Angielski"/>
+
+            <RadioButton
+                android:id="@+id/radioLangFrench"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Francuski"/>
+
+            <RadioButton
+                android:id="@+id/radioLangGerman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Niemiecki"/>
+
+            <RadioButton
+                android:id="@+id/radioLangSpanish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hiszpański"/>
+
+        </RadioGroup>
+
+        <!-- Ocena -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⭐ Ocena:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <RadioButton
+                android:id="@+id/radioRatingAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wszystkie oceny"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radioRating9Plus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⭐⭐⭐⭐⭐ 9.0 - 10.0 (Wybitne)"/>
+
+            <RadioButton
+                android:id="@+id/radioRating8Plus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⭐⭐⭐⭐ 8.0+ (Świetne)"/>
+
+            <RadioButton
+                android:id="@+id/radioRating7Plus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⭐⭐⭐ 7.0+ (Dobre)"/>
+
+            <RadioButton
+                android:id="@+id/radioRating5to7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⭐⭐ 5.0 - 7.0 (Średnie)"/>
+
+            <RadioButton
+                android:id="@+id/radioRatingBelow5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⭐ Poniżej 5.0 (Słabe)"/>
+
+        </RadioGroup>
+
+        <!-- Przyciski -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnClearFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Wyczyść"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@android:color/darker_gray"/>
+
+            <Button
+                android:id="@+id/btnApplyFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Zastosuj"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
